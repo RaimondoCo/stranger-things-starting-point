@@ -6,15 +6,23 @@ import Login from "./Login";
 import RegisterLogin from "./RegisterLogin";
 import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
 
+const isLoggedIn = !!localStorage.getItem("stranger_things_JWT");
+
+console.log(isLoggedIn);
+
 
 
 const App = (props) => {
   const { name } = props;
+  if (!isLoggedIn) return (<p>Please Log In!</p>)
   return (
     <>
       <Main />
       <h1 className="welcome">Welcome, {name}</h1>
-      <PostList />
+      <Postform/>
+      <button onClick={()=> localStorage.removeItem("stranger_things_JWT")}>Log Out</button>
+      {isLoggedIn && <PostList />}
+      {isLoggedIn ? <PostList/> : <p>Please log in...</p>}
       
     </>
   );
