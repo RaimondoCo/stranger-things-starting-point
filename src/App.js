@@ -1,13 +1,15 @@
 
-import React from "react";
+import React, { useEffect } from "react";
 import { hot } from 'react-hot-loader/root';
 import PostList from "./PostList";
 import Login from "./Login";
 import RegisterLogin from "./RegisterLogin";
 import { BrowserRouter, Route, Link, Switch } from "react-router-dom";
+import { login } from "./api";
 
-const isLoggedIn = !!localStorage.getItem("stranger_things_JWT");
-
+const [isLoggedIn, setIsLoggedIn] = useState(false);
+useEffect(() => { setIsLoggedIn(!!localStorage.getItem("stranger_things_JWT");
+}, []);
 console.log(isLoggedIn);
 
 
@@ -19,8 +21,15 @@ const App = (props) => {
     <>
       <Main />
       <h1 className="welcome">Welcome, {name}</h1>
-      <Postform/>
+
+      {/* <button onClick={()=> login(dataObject);
+      setIsLoggedIn(true);
+      }>Log In</button> */}
+
       <button onClick={()=> localStorage.removeItem("stranger_things_JWT")}>Log Out</button>
+
+      <Postform/>
+      
       {isLoggedIn && <PostList />}
       {isLoggedIn ? <PostList/> : <p>Please log in...</p>}
       
