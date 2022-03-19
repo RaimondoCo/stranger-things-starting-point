@@ -49,13 +49,16 @@ useEffect(async ()=> {const user = await getMe()
       
         <div className="Navbar">
           <h2>Stranger Things</h2>
-          {/* set up a ternary that shows SIGN UP AND LOGIN if loggedIn = false */}
+          
           <Link to= "/register">Sign Up </Link>
           <Link to= "/login">Login</Link>
+<<<<<<< HEAD
           <Link to= "/profile">Profile</Link>
       
+=======
+    
+>>>>>>> da0bc26ed7fed207b71aa6b8cf7d96b7cc7d4eb7
           
-          {/* if loggedIn is TRUE, display link to sign out */}
               
         </div>
         <h1 className="welcome"  >Welcome, {userData.username}</h1>
