@@ -24,9 +24,9 @@ const App = () => {
 
 //creategetMe function that takes data once user is logged in - populate prrofile, etc.
 
-// useEffect(async ()=> {const user = await getMe()
-//  setUserData(user);
-// }, [loggedIn])
+useEffect(async ()=> {const user = await getMe()
+ setUserData(user);
+}, [loggedIn])
   
   return (
     <>
