@@ -170,7 +170,7 @@ const token = localStorage.getItem('UserToken')
 }  
 }
 
-export const getMessages = async (postId) => {
+export const getMessageId = async (postId) => {
     try {
         const url = `${baseUrl}/posts/${postId}`;
         console.log(url);
@@ -192,5 +192,29 @@ export const getMessages = async (postId) => {
         console.error("this is my getMessages error!", error)
     }
 
+
+}
+
+export const createMessage = async (postMessage, postId) => {
+    // URL that we're gonna reach out to
+    try {
+    const url = `${baseUrl}/posts/${postId}/messages`;
+    const token = localStorage.getItem('UserToken')
+    // Grab the body given back by the API
+    const response = await fetch(url, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+token
+        },
+        body: JSON.stringify({post: postMessage})
+    });
+
+    // Take the body we got back and convert it to JS Object
+    const json = await response.json();
+    return json;
+    } catch(error){ 
+        console.error("this is my create post error!", error)
+    }  
 
 }

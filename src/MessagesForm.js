@@ -1,8 +1,8 @@
 import React, {useState} from "react";
-import { getMessages } from "./api";
+import { getMessageId, createMessage } from "./api";
 
 
-const MessagesForm =  (props) => {
+const MessagesForm =  (postid, props) => {
 
    
     const [title, setTitle] = useState('');
@@ -11,16 +11,25 @@ const MessagesForm =  (props) => {
     const {loggedIn} = props
    
 
+
+
     const handleSubmit = async (event) => {
         event.preventDefault();
-            
+        
+        const postid = (e) => e.currentTarget.id;
+      
+        //const MessageId = await getMessageId(postid);
+        
         const postMessage = {
+                // _id: MessageId,
                 title: title,
                 description: description,
             }
 
-        const sendMessage = await getMessages(postMessage);
-        setNewMessage([...message, sendMessage.data.message]);
+        const createdPostMessage = await createMessage(postMessage, postid);
+
+        setNewMessage(createdPostMessage);
+
         setTitle('');
         setDescription('');
     }
@@ -33,7 +42,7 @@ const MessagesForm =  (props) => {
     return (
         <div id='PostForm'>
             <h2>Add your message:</h2>
-            {loggedIn ? 
+            {!loggedIn ? 
             <>
             <form onSubmit={handleSubmit}>
             <label htmlFor='title'>Subject</label>
