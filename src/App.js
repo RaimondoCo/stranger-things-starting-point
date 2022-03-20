@@ -8,6 +8,7 @@ import PostForm from "./PostForm";
 import {getMe} from "./api";
 import Profile from "./Profile";
 // import UpdateForms from "./UpdateForms";
+import MessagesForm from "./MessagesForm";
 
 
 const App = () => {
@@ -26,6 +27,12 @@ const App = () => {
         setUserData(user);
     }, [loggedIn])
 
+    const logOut =  () => {
+      localStorage.removeItem("UserToken");
+      setLoggedIn(false);
+     
+    }
+
     return (
        <>
             <BrowserRouter>
@@ -38,15 +45,18 @@ const App = () => {
                     <div className="Navbar">
                         <h2>Stranger Things</h2>
 {/* add home button */}
-                        <Link to="/register">Sign Up</Link>
+                        <Link to="/"><button >Home</button></Link>
+                        <Link to="/profile"><button >Profile</button></Link>
+                        <Link to="/register"><button >Sign Up</button></Link>
+                        <Link to="/login"><button >Login</button></Link>
+                        <button className="LogOut" onClick={logOut}>Log out</button>
                         
-                        <Link to="/login">Login</Link>
-                        <Link to="/profile">Profile</Link>
+                        
+                        
                     </div>
 
-                    <h1 className="welcome">Welcome, {
-                        userData.username
-                    }</h1>
+                    <h1 className="welcome">Welcome to Stranger Things!
+                      </h1>
 
                         <Switch>
 
@@ -71,7 +81,7 @@ const App = () => {
                             </Route>
 
                             <Route path="/profile">
-                                <Profile />
+                                <Profile loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
                             </Route>
 
                         </Switch>
@@ -80,10 +90,11 @@ const App = () => {
 
                 </div>
                 </BrowserRouter>
-                
+                <div id="sideBar">
                 <PostForm posts={posts}
                     setPosts={setPosts}
                     loggedIn={loggedIn}/>
+                </div>
            </>
     )
 }

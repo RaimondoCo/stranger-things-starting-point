@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getPosts, deletePost } from './api';
 import UpdateForms from "./UpdateForms"
+import MessagesForm from './MessagesForm';
 
 const PostList = (props) => {
     const [editOpen, setEditOpen] = useState(false)
@@ -25,11 +26,12 @@ const handleDelete = (postid, event) => {
                 <div key={post._id}>
                     <h2>{post.title}</h2>
                     <p>{post.description}</p>
-                    <p>{post.price}</p>
+                    <p>{post.price} $</p>
                     {/* if the edit button is clicked, i'd want the form to show up below it */}
                     {post.isAuthor && <button onClick={() => {setEditOpen(!editOpen)}} editOpen={editOpen}>Edit</button>}
                     {post.isAuthor && editOpen ? <UpdateForms loggedIn={loggedIn} postId={post.id}/> : null}
-                    {post.isAuthor && <button onClick = {(event)=> {handleDelete(post._id, event)}}>DELETE</button>}
+                    {post.isAuthor && <button onClick = {(event)=> {handleDelete(post._id, event)}}>Delete</button>}
+                    <button onClick={<MessagesForm/>} > Message the author</button>
                 </div>
             )}
         </div>

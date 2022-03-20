@@ -60,8 +60,10 @@ const PostForm =  (props) => {
 
     return (
         <div id='PostForm'>
+            
             {loggedIn ? 
             <>
+            <h2>Create a new post:</h2>
             <form onSubmit={handleSubmit}>
             <label htmlFor='title'>Title</label>
             <input type='text' name='Title' value={title} onChange={handleTitle} required/>

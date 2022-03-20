@@ -169,3 +169,28 @@ const token = localStorage.getItem('UserToken')
     console.error("this is my getMe error!", error)
 }  
 }
+
+export const getMessages = async (postId) => {
+    try {
+        const url = `${baseUrl}/posts/${postId}`;
+        console.log(url);
+    const token = localStorage.getItem('UserToken')
+        // Grab the body given back by the API
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+token
+            },
+        });
+        console.log("this is the response to get my messages", response)
+
+        const json = await response.json();
+        console.log(json)
+        return json;
+    } catch(error){ 
+        console.error("this is my getMessages error!", error)
+    }
+
+
+}

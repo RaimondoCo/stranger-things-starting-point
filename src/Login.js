@@ -65,7 +65,7 @@ const Login = (props) => {
                 }
                 <button id="summit" type='submit'>Submit</button>
             </form> </> :
-            <button className="LogOut" onClick={logOut}>Log out</button>}
+            null}
         </div>
     )
 }

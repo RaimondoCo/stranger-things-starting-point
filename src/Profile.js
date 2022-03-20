@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { getMe } from "./api"; 
-
+import { deletePost } from './api';
+import UpdateForms from "./UpdateForms"
 
 
 
@@ -13,14 +14,23 @@ import { getMe } from "./api";
 
 
 
-const Profile =  () => {
+const Profile =  (props) => {
 
     
     const [userPosts, setUserPosts] = useState([]);
     const [userMessages, setUserMessages] = useState([]);
     const [userId, setUserId] = useState([]);
     const [userUsername, setUserUsername] = useState(""); 
+    const {loggedIn, setLoggedIn} = props
+
+    const [editOpen, setEditOpen] = useState(false)
     
+    const handleDelete = (postid, event) => {
+        event.preventDefault();
+        deletePost(postid);
+        const remainingPosts = posts.filter((post) => postid !== post._id);
+        setPosts(remainingPosts);
+    }
 
     useEffect(async () => {
         const userPosts = await getMe();
@@ -46,19 +56,21 @@ const Profile =  () => {
         setUserUsername(username.data.username);
     }, []);
 
-
+   
 
     return (
-     <>  <div>
-<p>Welcome to your profile {userUsername}</p>
-<p>Your ID is {userId}</p>
-        </div>
+     <>  
+     {loggedIn ? <>
+<p>Welcome to your profile, {userUsername}</p>
         <div>
             {userPosts.map(post =>
                 <div key={post._id}>
                     <h2>{post.title}</h2>
                     <p>{post.description}</p>
-                    <p>{post.price}</p>
+                    <p>{post.price} $</p>
+                    <button onClick={() => {setEditOpen(!editOpen)}} editOpen={editOpen}>Edit</button>
+                    { editOpen ? <UpdateForms postId={post._id}/> : null}
+                    <button onClick = {(event)=> {handleDelete(post._id, event)}}>Delete</button>
                 </div>
             )}
         </div>
@@ -69,7 +81,8 @@ const Profile =  () => {
                     <p>{message.content}</p>
                 </div>
             )}
-        </div>
+        </div> </> :  
+            <p> Register or login to see your profile!</p>}
         </>
     );
 };
