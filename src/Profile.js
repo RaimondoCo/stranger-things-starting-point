@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { getMe } from "./api"; 
-import { deletePost } from './api';
+import { getMe, deletePost, getPosts } from "./api"; 
 import UpdateForms from "./UpdateForms"
 
 
@@ -28,14 +27,14 @@ const Profile =  (props) => {
     const handleDelete = (postid, event) => {
         event.preventDefault();
         deletePost(postid);
-        const remainingPosts = userPosts.filter((userPosts) => postid !== userPosts._id);
+        const remainingPosts = userPosts.filter((post) => postid !== post._id);
         setUserPosts(remainingPosts);
     }
 
     useEffect(async () => {
-        const userPosts = await getMe();
-        console.log("these are the users posts: ", userPosts.data.posts)
-        setUserPosts(userPosts.data.posts);
+        const posts = await getPosts();
+        console.log("these are the users posts: ", posts.data.posts)
+        setUserPosts(posts.data.posts);
     }, []);
 
     useEffect(async () => {
@@ -52,7 +51,7 @@ const Profile =  (props) => {
         setUserUsername(username.data.username);
     }, []);
 
-   
+   console.log("this is user posts" + userPosts)
 
     return (
      <>  
@@ -60,13 +59,13 @@ const Profile =  (props) => {
 <p>Welcome to your profile, {userUsername}</p>
         <div>
             {userPosts.map(post =>
-                <div key={post._id}>
-                    <h2>{post.title}</h2>
-                    <p>{post.description}</p>
-                    <p>{post.price} $</p>
-                    {<button onClick={() => {setEditOpen(!editOpen)}} editOpen={editOpen}>Edit</button>}
-                    { editOpen ? <UpdateForms postId={post._id}/> : null}
-                    {<button onClick = {(event)=> {handleDelete(post._id, event)}}>Delete</button>}
+                <div key={ post._id}>
+                    <h2>{post.isAuthor && post.title}</h2>
+                    <p>{post.isAuthor && post.description}</p>
+                    {post.isAuthor && <p {...post.price} >  $</p>}
+                    {post.isAuthor && <button onClick={() => {setEditOpen(!editOpen)}} editOpen={editOpen}>Edit</button>}
+                    {post.isAuthor && editOpen ? <UpdateForms postId={post._id}/> : null}
+                    {post.isAuthor && <button onClick = {(event)=> {handleDelete(post._id, event)}}>Delete</button>}
                 </div>
             )}
         </div>

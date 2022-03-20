@@ -80,7 +80,8 @@ const App = () => {
                             </Route>
 
                             <Route path="/profile">
-                                <Profile loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
+                                <Profile loggedIn={loggedIn} setLoggedIn={setLoggedIn} osts={posts}
+                                    setPosts={setPosts}/>
                             </Route>
 
                         </Switch>
