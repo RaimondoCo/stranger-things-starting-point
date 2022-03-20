@@ -7,8 +7,9 @@ import {BrowserRouter, Route, Link, Switch} from "react-router-dom";
 import PostForm from "./PostForm";
 import {getMe} from "./api";
 import Profile from "./Profile";
-// import UpdateForms from "./UpdateForms";
-import MessagesForm from "./MessagesForm";
+//  import UpdateForms from "./UpdateForms";
+// import MessagesForm from "./MessagesForm";
+// import SearchPost from "./Search";
 
 
 const App = () => {
@@ -44,16 +45,14 @@ const App = () => {
 
                     <div className="Navbar">
                         <h2>Stranger Things</h2>
-{/* add home button */}
+
                         <Link to="/"><button >Home</button></Link>
                         <Link to="/profile"><button >Profile</button></Link>
                         <Link to="/register"><button >Sign Up</button></Link>
                         <Link to="/login"><button >Login</button></Link>
                         <button className="LogOut" onClick={logOut}>Log out</button>
-                        
-                        
-                        
                     </div>
+                        {/* <div><SearchPost/></div> */}
 
                     <h1 className="welcome">Welcome to Stranger Things!
                       </h1>

@@ -65,7 +65,7 @@ const Login = (props) => {
                 }
                 <button id="summit" type='submit'>Submit</button>
             </form> </> :
-            null}
+            <p>You are already signed in!</p>}
         </div>
     )
 }

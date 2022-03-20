@@ -96,3 +96,8 @@ label {
 Link {
     font-size: xx-large;
 }
+
+#profileMessages {
+    background-color: azure;
+    border: 10px black double;
+}

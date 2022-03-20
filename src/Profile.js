@@ -19,16 +19,16 @@ const Profile =  (props) => {
     
     const [userPosts, setUserPosts] = useState([]);
     const [userMessages, setUserMessages] = useState([]);
-    const [userId, setUserId] = useState([]);
+
     const [userUsername, setUserUsername] = useState(""); 
-    const {loggedIn, setLoggedIn} = props
+    const {loggedIn} = props
 
     const [editOpen, setEditOpen] = useState(false)
     
     const handleDelete = (postid, event) => {
         event.preventDefault();
         deletePost(postid);
-        const remainingPosts = userPosts.filter((post) => postid !== post._id);
+        const remainingPosts = userPosts.filter((userPosts) => postid !== userPosts._id);
         setUserPosts(remainingPosts);
     }
 
@@ -44,11 +44,7 @@ const Profile =  (props) => {
         setUserMessages(userMessages.data.messages);
     }, []);
 
-    useEffect(async () => {
-        const userId = await getMe();
-        console.log("user ID: ", userId.data._id)
-        setUserId(userId.data._id);
-    }, []);
+   
 
     useEffect(async () => {
         const username = await getMe();
@@ -68,13 +64,13 @@ const Profile =  (props) => {
                     <h2>{post.title}</h2>
                     <p>{post.description}</p>
                     <p>{post.price} $</p>
-                    <button onClick={() => {setEditOpen(!editOpen)}} editOpen={editOpen}>Edit</button>
+                    {<button onClick={() => {setEditOpen(!editOpen)}} editOpen={editOpen}>Edit</button>}
                     { editOpen ? <UpdateForms postId={post._id}/> : null}
-                    <button onClick = {(event)=> {handleDelete(post._id, event)}}>Delete</button>
+                    {<button onClick = {(event)=> {handleDelete(post._id, event)}}>Delete</button>}
                 </div>
             )}
         </div>
-        <div>
+        <div id="profileMessages">
             {userMessages.map(message =>
                 <div key={message._id}>
                     <h2>{message.fromUser.username}</h2>
