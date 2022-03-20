@@ -124,18 +124,29 @@ export const updateNewPost = async (postId, newPost) => {
     return json;
 };
 
-// export const deletePost = async (postId) => {
-//     const url = `${baseUrl}/posts/${postId}`;
-    
-//     const response = await fetch(url, {
-//         method: "DELETE"
-//     });
-// }
+export const deletePost = async (postId) => {
+    try{const url = `${baseUrl}/posts/${postId}`;
+    const token = localStorage.getItem('UserToken')
+    const response = await fetch(url, {
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+token
+          }
+    });
+    const json = await response.json();
+    console.log(json)
+    return json;
+} catch(error){ 
+    console.error("this is my getMe error!", error)
+}  
+}
+
 
 export const getMe = async () => {
     // URL that we're gonna reach out to
     try {
-    const url = `${baseUrl}/me`;
+    const url = `${baseUrl}/users/me`;
     console.log(url);
 const token = localStorage.getItem('UserToken')
     // Grab the body given back by the API
@@ -146,6 +157,7 @@ const token = localStorage.getItem('UserToken')
             'Authorization': 'Bearer '+token
         },
     });
+    
 
     console.log("this is the response to get my user profile", response)
 

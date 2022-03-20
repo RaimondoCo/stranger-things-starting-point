@@ -13,62 +13,59 @@ import { getMe } from "./api";
 
 
 
-const Profile =  (props) => {
+const Profile =  () => {
 
     
-    const [userPosts, setUserPosts] = useState('');
-    const [userMessages, setUserMessages] = useState('');
-    const [userId, setUserId] = useState('');
-    const [userUsername, setUserUsername] = useState(''); 
+    const [userPosts, setUserPosts] = useState([]);
+    const [userMessages, setUserMessages] = useState([]);
+    const [userId, setUserId] = useState([]);
+    const [userUsername, setUserUsername] = useState(""); 
     
-    const {loggedIn} = props
-
-
-   
 
     useEffect(async () => {
         const userPosts = await getMe();
-        console.log(userPosts)
-        setUserPosts(userPosts.posts);
-    }, [loggedIn]);
+        console.log("these are the users posts: ", userPosts.data.posts)
+        setUserPosts(userPosts.data.posts);
+    }, []);
 
     useEffect(async () => {
         const userMessages = await getMe();
-        console.log(userMessages)
-        setUserMessages(userMessages.messages);
-    }, [loggedIn]);
+        console.log("these are the user's messages:", userMessages.data.messages)
+        setUserMessages(userMessages.data.messages);
+    }, []);
 
     useEffect(async () => {
-        const userKey = await getMe();
-        console.log(userKey)
-        setUserId(userKey._Id);
-    }, [loggedIn]);
+        const userId = await getMe();
+        console.log("user ID: ", userId.data._id)
+        setUserId(userId.data._id);
+    }, []);
 
     useEffect(async () => {
         const username = await getMe();
-        console.log(username)
-        setUserUsername(userUsername.username);
-    }, [loggedIn]);
+        console.log("username: ", username.data.username)
+        setUserUsername(username.data.username);
+    }, []);
 
 
 
     return (
-     <> <p> What's the problem here?</p>  <div>
+     <>  <div>
 <p>Welcome to your profile {userUsername}</p>
 <p>Your ID is {userId}</p>
         </div>
         <div>
             {userPosts.map(post =>
-                <div key={post.posts._id}>
-                    <h2>{post.posts.title}</h2>
-                    <p>{post.posts.description}</p>
+                <div key={post._id}>
+                    <h2>{post.title}</h2>
+                    <p>{post.description}</p>
+                    <p>{post.price}</p>
                 </div>
             )}
         </div>
         <div>
             {userMessages.map(message =>
                 <div key={message._id}>
-                    <h2>{message.fromUser}</h2>
+                    <h2>{message.fromUser.username}</h2>
                     <p>{message.content}</p>
                 </div>
             )}
