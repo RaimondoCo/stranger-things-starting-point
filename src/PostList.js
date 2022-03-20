@@ -5,6 +5,7 @@ import MessagesForm from './MessagesForm';
 
 const PostList = (props) => {
     const [editOpen, setEditOpen] = useState(false)
+    const [messageOpen, setMessageOpen] = useState(false)
     const {posts, setPosts, loggedIn} = props;
 
 const handleDelete = (postid, event) => {
@@ -31,7 +32,8 @@ const handleDelete = (postid, event) => {
                     {post.isAuthor && <button onClick={() => {setEditOpen(!editOpen)}} editOpen={editOpen}>Edit</button>}
                     {post.isAuthor && editOpen ? <UpdateForms loggedIn={loggedIn} postId={post.id}/> : null}
                     {post.isAuthor && <button onClick = {(event)=> {handleDelete(post._id, event)}}>Delete</button>}
-                    <button onClick={<MessagesForm/>} > Message the author</button>
+                   {!post.isAuthor && <button onClick = {()=> {setMessageOpen(!messageOpen)}} messageOpen={messageOpen}> Message the author</button>}
+                   {!post.isAuthor && messageOpen ? <MessagesForm loggedIn={loggedIn} /> : null }
                 </div>
             )}
         </div>

@@ -28,8 +28,8 @@ const Profile =  (props) => {
     const handleDelete = (postid, event) => {
         event.preventDefault();
         deletePost(postid);
-        const remainingPosts = posts.filter((post) => postid !== post._id);
-        setPosts(remainingPosts);
+        const remainingPosts = userPosts.filter((post) => postid !== post._id);
+        setUserPosts(remainingPosts);
     }
 
     useEffect(async () => {

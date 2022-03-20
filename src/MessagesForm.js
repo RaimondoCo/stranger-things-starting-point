@@ -32,8 +32,8 @@ const MessagesForm =  (props) => {
     
     return (
         <div id='PostForm'>
-            <h2>Create a new post:</h2>
-            {!loggedIn ? 
+            <h2>Add your message:</h2>
+            {loggedIn ? 
             <>
             <form onSubmit={handleSubmit}>
             <label htmlFor='title'>Subject</label>
