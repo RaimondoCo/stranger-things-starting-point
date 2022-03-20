@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { getMe } from "./api"; 
-
+import { deletePost } from './api';
+import UpdateForms from "./UpdateForms"
 
 
 
@@ -16,63 +17,68 @@ import { getMe } from "./api";
 const Profile =  (props) => {
 
     
-    const [userPosts, setUserPosts] = useState('');
-    const [userMessages, setUserMessages] = useState('');
-    const [userId, setUserId] = useState('');
-    const [userUsername, setUserUsername] = useState(''); 
-    
+    const [userPosts, setUserPosts] = useState([]);
+    const [userMessages, setUserMessages] = useState([]);
+
+    const [userUsername, setUserUsername] = useState(""); 
     const {loggedIn} = props
 
+    const [editOpen, setEditOpen] = useState(false)
+    
+    const handleDelete = (postid, event) => {
+        event.preventDefault();
+        deletePost(postid);
+        const remainingPosts = userPosts.filter((userPosts) => postid !== userPosts._id);
+        setUserPosts(remainingPosts);
+    }
+
+    useEffect(async () => {
+        const userPosts = await getMe();
+        console.log("these are the users posts: ", userPosts.data.posts)
+        setUserPosts(userPosts.data.posts);
+    }, []);
+
+    useEffect(async () => {
+        const userMessages = await getMe();
+        console.log("these are the user's messages:", userMessages.data.messages)
+        setUserMessages(userMessages.data.messages);
+    }, []);
 
    
 
     useEffect(async () => {
-        const userPosts = await getMe();
-        console.log(userPosts)
-        setUserPosts(userPosts.posts);
-    }, [loggedIn]);
-
-    useEffect(async () => {
-        const userMessages = await getMe();
-        console.log(userMessages)
-        setUserMessages(userMessages.messages);
-    }, [loggedIn]);
-
-    useEffect(async () => {
-        const userKey = await getMe();
-        console.log(userKey)
-        setUserId(userKey._Id);
-    }, [loggedIn]);
-
-    useEffect(async () => {
         const username = await getMe();
-        console.log(username)
-        setUserUsername(userUsername.username);
-    }, [loggedIn]);
+        console.log("username: ", username.data.username)
+        setUserUsername(username.data.username);
+    }, []);
 
-
+   
 
     return (
-     <>   <div>
-<p>Welcome to your profile {userUsername}</p>
-<p>Your ID is {userId}</p>
-        </div>
+     <>  
+     {loggedIn ? <>
+<p>Welcome to your profile, {userUsername}</p>
         <div>
             {userPosts.map(post =>
                 <div key={post._id}>
                     <h2>{post.title}</h2>
                     <p>{post.description}</p>
+                    <p>{post.price} $</p>
+                    {<button onClick={() => {setEditOpen(!editOpen)}} editOpen={editOpen}>Edit</button>}
+                    { editOpen ? <UpdateForms postId={post._id}/> : null}
+                    {<button onClick = {(event)=> {handleDelete(post._id, event)}}>Delete</button>}
                 </div>
             )}
         </div>
-        <div>
+        <div id="profileMessages">
             {userMessages.map(message =>
                 <div key={message._id}>
                     <h2>{message.fromUser.username}</h2>
                     <p>{message.content}</p>
                 </div>
             )}
-        </div>
+        </div> </> :  
+            <p> Register or login to see your profile!</p>}
         </>
     );
 };

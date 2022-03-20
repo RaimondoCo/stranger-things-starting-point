@@ -125,17 +125,28 @@ export const updateNewPost = async (postId, newPost) => {
 };
 
 export const deletePost = async (postId) => {
-    const url = `${baseUrl}/posts/${postId}`;
-    
+    try{const url = `${baseUrl}/posts/${postId}`;
+    const token = localStorage.getItem('UserToken')
     const response = await fetch(url, {
-        method: "DELETE"
+        method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer '+token
+          }
     });
+    const json = await response.json();
+    console.log(json)
+    return json;
+} catch(error){ 
+    console.error("this is my getMe error!", error)
+}  
 }
+
 
 export const getMe = async () => {
     // URL that we're gonna reach out to
     try {
-    const url = `${baseUrl}/me`;
+    const url = `${baseUrl}/users/me`;
     console.log(url);
 const token = localStorage.getItem('UserToken')
     // Grab the body given back by the API
@@ -146,8 +157,9 @@ const token = localStorage.getItem('UserToken')
             'Authorization': 'Bearer '+token
         },
     });
+    
 
-    console.log("this is the response to create a post", response)
+    console.log("this is the response to get my user profile", response)
 
     // Take the body we got back and convert it to JS Object
     const json = await response.json();
@@ -156,4 +168,29 @@ const token = localStorage.getItem('UserToken')
 } catch(error){ 
     console.error("this is my getMe error!", error)
 }  
+}
+
+export const getMessages = async (postId) => {
+    try {
+        const url = `${baseUrl}/posts/${postId}`;
+        console.log(url);
+    const token = localStorage.getItem('UserToken')
+        // Grab the body given back by the API
+        const response = await fetch(url, {
+            method: "GET",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer '+token
+            },
+        });
+        console.log("this is the response to get my messages", response)
+
+        const json = await response.json();
+        console.log(json)
+        return json;
+    } catch(error){ 
+        console.error("this is my getMessages error!", error)
+    }
+
+
 }

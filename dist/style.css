@@ -41,12 +41,18 @@ padding: 3%;
 
 }
 
-#PostForm {
+#sideBar {
+display: flex;
+flex-direction: column;
+}
+
+#PostForm, #MessagesForm {
     border: black;
     margin: 5%;
     padding: 5%;
     background-color: blanchedalmond;
 }
+
 
 
 #Login-container {
@@ -89,4 +95,9 @@ label {
 
 Link {
     font-size: xx-large;
+}
+
+#profileMessages {
+    background-color: azure;
+    border: 10px black double;
 }

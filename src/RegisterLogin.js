@@ -11,10 +11,7 @@ const RegisterLogin = (props) => {
     const [hasTriggeredError, setHasTriggeredError] = useState(false);
     const {loggedIn, setLoggedIn} = props
 
-    const logOut =  () => {
-        localStorage.removeItem("UserToken");
-        setLoggedIn(false);
-      }
+  
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -75,7 +72,7 @@ const RegisterLogin = (props) => {
                     <p style={{ color: 'red' }}> Whoopse, looks like you need to fix something! </p>
                 }
                 <button id="summit" type='submit'>Submit</button>
-            </form> </> : <button className="LogOut" onClick={logOut}>Log out</button>}
+            </form> </> : <p> You already have an account and are signed in!</p>}
         </div>
     )
 }

@@ -4,14 +4,6 @@ import { createNewPost } from "./api";
 
 const PostForm =  (props) => {
 
-    // const [posts, setPosts] = props;
-    // post (object, required)
-    // title (string, required): the title/name of the item for sale
-    // description (string, required): the description of the posted item
-    // price (string, required): the price of the posted item
-    // location (string, optional): the location of the posted item, will default to [On Request] if not supplied
-    // willDeliver (boolean, optional): whether or not the poster will deliver the item, default is false
-
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [price, setPrice] = useState('');
@@ -60,8 +52,10 @@ const PostForm =  (props) => {
 
     return (
         <div id='PostForm'>
+            
             {loggedIn ? 
             <>
+            <h2>Create a new post:</h2>
             <form onSubmit={handleSubmit}>
             <label htmlFor='title'>Title</label>
             <input type='text' name='Title' value={title} onChange={handleTitle} required/>
