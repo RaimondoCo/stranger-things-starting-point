@@ -19,7 +19,9 @@ export const getPosts = async () => {
         response = await fetch(postUrl);
     }
     const returnedPost = await response.json()
+    console.log("this is the returnPost" + returnedPost)
     return returnedPost;
+    
 } catch(error){
     console.log("error in getPost!")
     throw error;
@@ -117,7 +119,7 @@ export const updateNewPost = async (postId, newPost) => {
             'Content-Type': "application/json",
             "Authorization": 'Bearer ' + token
         },
-        body: json.stringify(newPost)
+        body: JSON.stringify(newPost)
     });
     const json = await response.json();
     console.log(json);
@@ -135,7 +137,7 @@ export const deletePost = async (postId) => {
           }
     });
     const json = await response.json();
-    console.log(json)
+
     return json;
 } catch(error){ 
     console.error("this is my getMe error!", error)

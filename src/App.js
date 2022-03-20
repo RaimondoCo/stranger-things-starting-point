@@ -5,20 +5,11 @@ import Login from "./Login";
 import RegisterLogin from "./RegisterLogin";
 import {BrowserRouter, Route, Link, Switch} from "react-router-dom";
 import PostForm from "./PostForm";
-<<<<<<< HEAD
-import { getMe } from "./api";
-import Profile from "./Profile";
-import UpdateForms from "./UpdateForms";
-
-
-
-=======
 import {getMe} from "./api";
 import Profile from "./Profile";
-//  import UpdateForms from "./UpdateForms";
-// import MessagesForm from "./MessagesForm";
-// import SearchPost from "./Search";
->>>>>>> 9decba3894877d7412d2f45f725495eef229c66a
+ import UpdateForms from "./UpdateForms";
+import MessagesForm from "./MessagesForm";
+import SearchPost from "./Search";
 
 
 const App = () => {
@@ -32,30 +23,6 @@ const App = () => {
 
     // creategetMe function that takes data once user is logged in - populate prrofile, etc.
 
-<<<<<<< HEAD
-// useEffect(async ()=> {const user = await getMe()
-//  setUserData(user);
-// }, [loggedIn])
-  
-  return (
-    <>
-      {/* <Main posts={posts} setPosts={setPosts} loggedIn={loggedIn} setLoggedIn={setLoggedIn}/> */}  
-    <BrowserRouter>
-      <div id="Container"> 
-      
-        <div className="Navbar">
-          <h2>Stranger Things</h2>
-          
-          <Link to= "/register">Sign Up </Link>
-          <Link to= "/login">Login</Link>
-          <Link to= "/profile">Profile</Link>
-          
-              
-        </div>
-        <h1 className="welcome"  >Welcome, {userData.username}</h1>
-        <PostList posts={posts} setPosts={setPosts} loggedIn={loggedIn}/>
-    <Switch>
-=======
     useEffect(async () => {
         const user = await getMe()
         setUserData(user);
@@ -64,7 +31,6 @@ const App = () => {
     const logOut =  () => {
       localStorage.removeItem("UserToken");
       setLoggedIn(false);
->>>>>>> 9decba3894877d7412d2f45f725495eef229c66a
      
     }
 
@@ -86,7 +52,7 @@ const App = () => {
                         <Link to="/login"><button >Login</button></Link>
                         <button className="LogOut" onClick={logOut}>Log out</button>
                     </div>
-                        {/* <div><SearchPost/></div> */}
+                        <div><SearchPost/></div>
 
                     <h1 className="welcome">Welcome to Stranger Things!
                       </h1>
@@ -114,7 +80,9 @@ const App = () => {
                             </Route>
 
                             <Route path="/profile">
-                                <Profile loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
+                                <Profile posts={posts}
+                                    setPosts={setPosts}
+                                    loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
                             </Route>
 
                         </Switch>

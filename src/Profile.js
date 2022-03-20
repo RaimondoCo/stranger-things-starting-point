@@ -28,14 +28,15 @@ const Profile =  (props) => {
     const handleDelete = (postid, event) => {
         event.preventDefault();
         deletePost(postid);
-        const remainingPosts = userPosts.filter((userPosts) => postid !== userPosts._id);
+        const remainingPosts = userPosts.filter((post) => postid !== post._id);
         setUserPosts(remainingPosts);
     }
 
     useEffect(async () => {
-        const userPosts = await getMe();
-        console.log("these are the users posts: ", userPosts.data.posts)
-        setUserPosts(userPosts.data.posts);
+        const GrabPosts = await getMe();
+
+        console.log("these are the users posts: ", GrabPosts.data.posts)
+        setUserPosts(GrabPosts.data.posts);
     }, []);
 
     useEffect(async () => {
@@ -52,7 +53,7 @@ const Profile =  (props) => {
         setUserUsername(username.data.username);
     }, []);
 
-   
+   console.log("this is user posts" + userPosts)
 
     return (
      <>  

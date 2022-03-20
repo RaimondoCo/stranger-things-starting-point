@@ -20,7 +20,8 @@ const MessagesForm =  (props) => {
             }
 
         const sendMessage = await getMessages(postMessage);
-        setNewMessage([...message, sendMessage.data.message]);
+        console.log("hi" +sendMessage)
+        setNewMessage([...message, JSON.stringify(sendMessage.data.message)]);
         setTitle('');
         setDescription('');
     }
