@@ -12,8 +12,10 @@ const MessagesForm =  (props) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
        await createMessage(content, postid);
         setContent('');
+
     }
 
 

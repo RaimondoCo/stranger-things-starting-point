@@ -7,9 +7,9 @@ import {BrowserRouter, Route, Link, Switch} from "react-router-dom";
 import PostForm from "./PostForm";
 import {getMe} from "./api";
 import Profile from "./Profile";
-//  import UpdateForms from "./UpdateForms";
-// import MessagesForm from "./MessagesForm";
-// import SearchPost from "./Search";
+ import UpdateForms from "./UpdateForms";
+import MessagesForm from "./MessagesForm";
+import SearchPost from "./Search";
 
 
 const App = () => {
@@ -52,7 +52,7 @@ const App = () => {
                         <Link to="/login"><button >Login</button></Link>
                         <button className="LogOut" onClick={logOut}>Log out</button>
                     </div>
-                        {/* <div><SearchPost/></div> */}
+                        <div><SearchPost/></div>
 
                     <h1 className="welcome">Welcome to Stranger Things!
                       </h1>
@@ -80,8 +80,11 @@ const App = () => {
                             </Route>
 
                             <Route path="/profile">
-                                <Profile loggedIn={loggedIn} setLoggedIn={setLoggedIn} osts={posts}
-                                    setPosts={setPosts}/>
+
+                                <Profile posts={posts}
+                                    setPosts={setPosts}
+                                    loggedIn={loggedIn} setLoggedIn={setLoggedIn}/>
+
                             </Route>
 
                         </Switch>

@@ -10,10 +10,9 @@ const PostList = (props) => {
 
 
 
-
-const handleDelete = (postid, event) => {
+const handleDelete = async (postid, event) => {
     event.preventDefault();
-    deletePost(postid);
+    await deletePost(postid);
     const remainingPosts = posts.filter((post) => postid !== post._id);
     setPosts(remainingPosts);
 }

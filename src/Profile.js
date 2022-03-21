@@ -32,9 +32,11 @@ const Profile =  (props) => {
     }
 
     useEffect(async () => {
+
         const posts = await getPosts();
         console.log("these are the users posts: ", posts.data.posts)
         setUserPosts(posts.data.posts);
+
     }, []);
 
     useEffect(async () => {
