@@ -1,34 +1,25 @@
 import React, {useState} from "react";
-import { getMessages } from "./api";
+import { createMessage } from "./api";
 
 
 const MessagesForm =  (props) => {
 
+
+    const [content, setContent] = useState('');
+    const {loggedIn, postid} = props
    
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [message, setNewMessage] = useState('')
-    const {loggedIn} = props
-   
+
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-            
-        const postMessage = {
-                title: title,
-                description: description,
-            }
 
-        const sendMessage = await getMessages(postMessage);
-        console.log("hi" +sendMessage)
-        setNewMessage([...message, JSON.stringify(sendMessage.data.message)]);
-        setTitle('');
-        setDescription('');
+       await createMessage(content, postid);
+        setContent('');
+
     }
 
-    
-    const handleTitle = (event) => setTitle(event.target.value);
-    const handleDescription = (event) => setDescription(event.target.value)
+
+    const handleContent = (event) => setContent(event.target.value)
 
     
     return (
@@ -37,10 +28,9 @@ const MessagesForm =  (props) => {
             {loggedIn ? 
             <>
             <form onSubmit={handleSubmit}>
-            <label htmlFor='title'>Subject</label>
-            <input type='text' name='Subject' value={title} onChange={handleTitle} required/>
+
             <label htmlFor='body'>Your message here</label>
-            <input type='text' name='body' value={description} onChange={handleDescription} required/>
+            <input type='text' name='body' value={content} onChange={handleContent} required/>
              <button id="summit" type='submit'>Submit</button>
             </form> </> :  
             <p>Register or login to create a message!</p>}

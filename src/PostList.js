@@ -4,9 +4,11 @@ import UpdateForms from "./UpdateForms"
 import MessagesForm from './MessagesForm';
 
 const PostList = (props) => {
-    const [editOpen, setEditOpen] = useState(false)
+    const [editOpen, setEditOpen] = useState({open:false, id:null})
     const [messageOpen, setMessageOpen] = useState(false)
     const {posts, setPosts, loggedIn} = props;
+
+
 
 const handleDelete = async (postid, event) => {
     event.preventDefault();
@@ -32,8 +34,8 @@ const handleDelete = async (postid, event) => {
                     {post.isAuthor && <button onClick={() => {setEditOpen(!editOpen)}} editOpen={editOpen}>Edit</button>}
                     {post.isAuthor && editOpen ? <UpdateForms loggedIn={loggedIn} postId={post.id}/> : null}
                     {post.isAuthor && <button onClick = {(event)=> {handleDelete(post._id, event)}}>Delete</button>}
-                   {!post.isAuthor && <button onClick = {()=> {setMessageOpen(!messageOpen)}} messageOpen={messageOpen}> Message the author</button>}
-                   {!post.isAuthor && messageOpen ? <MessagesForm loggedIn={loggedIn} /> : null }
+                   {!post.isAuthor && <button key={post._id} onClick = {()=> {setMessageOpen({open:!messageOpen, id:post._id})}} messageOpen={messageOpen}> Message the author</button>}
+                   {!post.isAuthor && messageOpen.open && messageOpen.id === post._id ? <MessagesForm loggedIn={loggedIn} postid={post._id} /> : null }
                 </div>
             )}
         </div>

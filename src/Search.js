@@ -13,10 +13,13 @@ const SearchPost = (props) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        
+
         const entry = event.target.value
 
-        
+        //fetch all titles and descriptions in posts
+        //filter titles and descriptions that contain the entry
+        //return the posts that contain the entry
+
 
      
     }
@@ -29,10 +32,12 @@ const SearchPost = (props) => {
             type="text" 
             placeholder="enter text..." 
             onChange={handleSubmit}/>
+
         </fieldset> 
         <button className="search" type='search'>Search</button>
     </form>)
         
+
 };
 
 export default SearchPost;
