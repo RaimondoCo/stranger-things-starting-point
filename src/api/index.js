@@ -1,7 +1,7 @@
 
-const baseUrl = 'https://strangers-things.herokuapp.com/api/2112-FTW-ET-WEB-PT';
+const baseUrl = 'https://strangers-things.herokuapp.com/api/2112-FTB-ET-WEB-PT';
 
-const postUrl = 'https://strangers-things.herokuapp.com/api/2112-FTW-ET-WEB-PT/posts';
+const postUrl = 'https://strangers-things.herokuapp.com/api/2112-FTB-ET-WEB-PT/posts';
 
 export const getPosts = async () => {
     const token = localStorage.getItem('UserToken');
@@ -195,11 +195,15 @@ export const getMessageId = async (postId) => {
 
 }
 
-export const createMessage = async (postMessage, postId) => {
+export const createMessage = async (content, postId) => {
     // URL that we're gonna reach out to
+    console.log("hello!")
     try {
     const url = `${baseUrl}/posts/${postId}/messages`;
+    console.log("this is the API postId: ", postId)
     const token = localStorage.getItem('UserToken')
+    console.log("url", url)
+    console.log("token", token)
     // Grab the body given back by the API
     const response = await fetch(url, {
         method: "POST",
@@ -207,10 +211,13 @@ export const createMessage = async (postMessage, postId) => {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer '+token
         },
-        body: JSON.stringify({post: postMessage})
-    });
-
+        body: JSON.stringify({
+            message: {
+              content: content
+            }
+        })})
     // Take the body we got back and convert it to JS Object
+    console.log(response);
     const json = await response.json();
     return json;
     } catch(error){ 

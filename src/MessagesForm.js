@@ -1,54 +1,34 @@
 import React, {useState} from "react";
-import { getMessageId, createMessage } from "./api";
+import { createMessage } from "./api";
 
 
-const MessagesForm =  (postid, props) => {
+const MessagesForm =  (props) => {
 
+
+    const [content, setContent] = useState('');
+    const {loggedIn, postid} = props
    
-    const [title, setTitle] = useState('');
-    const [description, setDescription] = useState('');
-    const [message, setNewMessage] = useState('')
-    const {loggedIn} = props
-   
-
 
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        
-        const postid = (e) => e.currentTarget.id;
-      
-        //const MessageId = await getMessageId(postid);
-        
-        const postMessage = {
-                // _id: MessageId,
-                title: title,
-                description: description,
-            }
-
-        const createdPostMessage = await createMessage(postMessage, postid);
-
-        setNewMessage(createdPostMessage);
-
-        setTitle('');
-        setDescription('');
+       await createMessage(content, postid);
+        setContent('');
     }
 
-    
-    const handleTitle = (event) => setTitle(event.target.value);
-    const handleDescription = (event) => setDescription(event.target.value)
+
+    const handleContent = (event) => setContent(event.target.value)
 
     
     return (
         <div id='PostForm'>
             <h2>Add your message:</h2>
-            {!loggedIn ? 
+            {loggedIn ? 
             <>
             <form onSubmit={handleSubmit}>
-            <label htmlFor='title'>Subject</label>
-            <input type='text' name='Subject' value={title} onChange={handleTitle} required/>
+
             <label htmlFor='body'>Your message here</label>
-            <input type='text' name='body' value={description} onChange={handleDescription} required/>
+            <input type='text' name='body' value={content} onChange={handleContent} required/>
              <button id="summit" type='submit'>Submit</button>
             </form> </> :  
             <p>Register or login to create a message!</p>}
