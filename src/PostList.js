@@ -4,7 +4,7 @@ import UpdateForms from "./UpdateForms"
 import MessagesForm from './MessagesForm';
 
 const PostList = (props) => {
-    const [editOpen, setEditOpen] = useState({open:false, id:null})
+    const [editOpen, setEditOpen] = useState(false)
     const [messageOpen, setMessageOpen] = useState(false)
     const {posts, setPosts, loggedIn} = props;
 
@@ -20,7 +20,10 @@ const handleDelete = async (postid, event) => {
     useEffect(async () => {
         const posts = await getPosts();
         setPosts(posts.data.posts);
+
     }, []);
+
+
 
     console.log(posts)
     return (
@@ -31,8 +34,8 @@ const handleDelete = async (postid, event) => {
                     <p>{post.description}</p>
                     <p>{post.price} $</p>
                     {/* if the edit button is clicked, i'd want the form to show up below it */}
-                    {post.isAuthor && <button onClick={() => {setEditOpen(!editOpen)}} editOpen={editOpen}>Edit</button>}
-                    {post.isAuthor && editOpen ? <UpdateForms loggedIn={loggedIn} postId={post.id}/> : null}
+                    {post.isAuthor && <button key={post._id} onClick={() => {setEditOpen({open:!editOpen, id: post._id})}} editOpen={editOpen}>Edit</button>}
+                    {post.isAuthor && editOpen.open && editOpen.id === post._id ? <UpdateForms loggedIn={loggedIn} postid={post.id}/> : null}
                     {post.isAuthor && <button onClick = {(event)=> {handleDelete(post._id, event)}}>Delete</button>}
                    {!post.isAuthor && <button key={post._id} onClick = {()=> {setMessageOpen({open:!messageOpen, id:post._id})}} messageOpen={messageOpen}> Message the author</button>}
                    {!post.isAuthor && messageOpen.open && messageOpen.id === post._id ? <MessagesForm loggedIn={loggedIn} postid={post._id} /> : null }
@@ -40,6 +43,10 @@ const handleDelete = async (postid, event) => {
             )}
         </div>
     );
+
+    setEditOpen("");
+setMessageOpen("");
+
 };
 
 export default PostList;

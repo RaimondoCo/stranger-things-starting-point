@@ -29,14 +29,8 @@ const UpdateForms =  (props) => {
 
 
 
-
         const sendPost = await updateNewPost(newPost);
-        
-        
-        //i really doubt this might work. Should I pull the posts array, 
-        //check for the last index, and create an additional object to add that will contain
-        //the information entered and the info of the person logged in? Is there an easier route?
-        setPosts([...posts, sendPost.data.post]);
+        setPosts(sendPost);
 
         setTitle('');
             setDescription('');
@@ -56,7 +50,7 @@ const UpdateForms =  (props) => {
 
     return (
         <div id='PostForm'>
-            {loggedIn ? 
+            {!loggedIn ? 
             <>
             <form onSubmit={handleSubmit}>
             <label htmlFor='title'>Title</label>

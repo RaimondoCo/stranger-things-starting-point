@@ -110,8 +110,9 @@ export const createNewPost = async (postObject) => {
 
 }
 
-export const updateNewPost = async (postId, newPost) => {
-    const url = `${baseUrl}/posts/${postId}`;
+export const updateNewPost = async (postid, newPost) => {
+    const url = `${baseUrl}/posts/${postid}`;
+   
     const token = localStorage.getItem('UserToken')
     const response = await fetch(url, {
         method: "PATCH",
@@ -119,7 +120,9 @@ export const updateNewPost = async (postId, newPost) => {
             'Content-Type': "application/json",
             "Authorization": 'Bearer ' + token
         },
-        body: JSON.stringify(newPost)
+        body: JSON.stringify({
+            post: newPost
+          })
     });
     const json = await response.json();
     console.log(json);
@@ -172,30 +175,6 @@ const token = localStorage.getItem('UserToken')
 }  
 }
 
-export const getMessageId = async (postId) => {
-    try {
-        const url = `${baseUrl}/posts/${postId}`;
-        console.log(url);
-    const token = localStorage.getItem('UserToken')
-        // Grab the body given back by the API
-        const response = await fetch(url, {
-            method: "GET",
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer '+token
-            },
-        });
-        console.log("this is the response to get my messages", response)
-
-        const json = await response.json();
-        console.log(json)
-        return json;
-    } catch(error){ 
-        console.error("this is my getMessages error!", error)
-    }
-
-
-}
 
 export const createMessage = async (content, postId) => {
     // URL that we're gonna reach out to

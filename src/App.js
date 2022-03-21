@@ -52,7 +52,7 @@ const App = () => {
                         <Link to="/login"><button >Login</button></Link>
                         <button className="LogOut" onClick={logOut}>Log out</button>
                     </div>
-                        <div><SearchPost/></div>
+                        {/* <div><SearchPost/></div> */}
 
                     <h1 className="welcome">Welcome to Stranger Things!
                       </h1>
