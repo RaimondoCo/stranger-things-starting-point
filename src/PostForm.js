@@ -9,6 +9,7 @@ const PostForm =  (props) => {
     const [price, setPrice] = useState('');
     const [location, setLocation] = useState(''); 
     const [willDeliver, setWillDeliver] = useState(false);
+    const [createMessageOpen, setCreateMessageOpen] = useState(false)
     const {loggedIn, posts, setPosts} = props
 
     const [hasTriggeredError, setHasTriggeredError] = useState(false);
@@ -48,8 +49,8 @@ const PostForm =  (props) => {
         <div id='PostForm'>
             
             {loggedIn ? 
-            <>
-            <h2>Create a new post:</h2>
+            (<><button onClick={() => {setCreateMessageOpen(!createMessageOpen)}}>Create a new post!</button>
+            { createMessageOpen ? (<> <h2>Create a new post:</h2>
             <form onSubmit={handleSubmit}>
             <label htmlFor='title'>Title</label>
             <input type='text' name='Title' value={title} onChange={handleTitle} required/>
@@ -61,11 +62,9 @@ const PostForm =  (props) => {
             <input type='text' name='location' value={location} onChange={handleLocation} />
             <label htmlFor='willDeliver'> Will deliver? </label>
             <input type='checkbox' name='willDeliver' value={willDeliver} onChange={handleDeliver} />
-                
                 <button id="summit" type='submit'>Submit</button>
-            </form> </> :  
-            <p>Register or login to create a post!</p>}
-        </div>
+            </form> </>) : null } </>) : <p>Register or login to create a post!</p> }  
+      </div>
     )
 
 }
