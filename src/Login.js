@@ -35,13 +35,6 @@ const Login = (props) => {
 
     }
 
-
-
-    const logOut =  () => {
-        localStorage.removeItem("UserToken");
-        setLoggedIn(false);
-       
-      }
      
 
 

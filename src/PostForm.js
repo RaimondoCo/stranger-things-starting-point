@@ -17,21 +17,15 @@ const PostForm =  (props) => {
     const handleSubmit = async (event) => {
         event.preventDefault();
             
-        
         const postObject = {
                 title: title,
                 description: description,
                 price: price,
                 location: location,
                 willDeliver: willDeliver
-            
         }
 
-
-
         const sendPost = await createNewPost(postObject);
-        
-        
         setPosts([...posts, sendPost.data.post]);
 
         setTitle('');

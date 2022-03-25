@@ -7,8 +7,7 @@ import {BrowserRouter, Route, Link, Switch} from "react-router-dom";
 import PostForm from "./PostForm";
 import {getMe} from "./api";
 import Profile from "./Profile";
- import UpdateForms from "./UpdateForms";
-import MessagesForm from "./MessagesForm";
+
 import SearchPost from "./Search";
 
 

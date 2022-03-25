@@ -4,18 +4,13 @@ import { createMessage } from "./api";
 
 const MessagesForm =  (props) => {
 
-
     const [content, setContent] = useState('');
     const {loggedIn, postid} = props
    
-
-
     const handleSubmit = async (event) => {
         event.preventDefault();
-
        await createMessage(content, postid);
         setContent('');
-
     }
 
 

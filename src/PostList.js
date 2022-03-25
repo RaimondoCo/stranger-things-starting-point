@@ -17,10 +17,14 @@ const handleDelete = async (postid, event) => {
     setPosts(remainingPosts);
 }
 
+const sortItems = (array) => {
+    return array.createdAt.sort()
+}
+
     useEffect(async () => {
         const posts = await getPosts();
         setPosts(posts.data.posts);
-
+sortItems(posts);
     }, []);
 
 
@@ -44,8 +48,6 @@ const handleDelete = async (postid, event) => {
         </div>
     );
 
-    setEditOpen("");
-setMessageOpen("");
 
 };
 

@@ -110,10 +110,13 @@ export const createNewPost = async (postObject) => {
 
 }
 
-export const updateNewPost = async (postid, newPost) => {
+export const updateNewPost = async (postid, postObject) => {
+
+   // URL that we're gonna reach out to
+   try {
     const url = `${baseUrl}/posts/${postid}`;
-   
     const token = localStorage.getItem('UserToken')
+    // Grab the body given back by the API
     const response = await fetch(url, {
         method: "PATCH",
         headers: {
@@ -121,12 +124,18 @@ export const updateNewPost = async (postid, newPost) => {
             "Authorization": 'Bearer ' + token
         },
         body: JSON.stringify({
-            post: newPost
+            post: postObject
           })
     });
+
+    // Take the body we got back and convert it to JS Object
     const json = await response.json();
-    console.log(json);
+    console.log(json,"from API")
     return json;
+    } catch(error){ 
+        console.error("this is my update post error!", error)
+    }  
+
 };
 
 export const deletePost = async (postId) => {
